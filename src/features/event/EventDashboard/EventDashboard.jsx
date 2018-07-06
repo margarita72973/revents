@@ -3,7 +3,7 @@ import { Grid, Button } from 'semantic-ui-react';
 import EventList from '../EventList/EventList';
 import EventForm from '../EventForm/EventForm';
 
-const events = [
+const eventsDashboard = [
   {
     id: '1',
     title: 'Trip to Tower of London',
@@ -56,15 +56,34 @@ const events = [
 
 
 class EventDashboard extends Component {
+
+  state = {
+    events: eventsDashboard,
+    isOpen: false,
+  }
+
+
+  handleFormOpen = e => {
+    this.setState({
+      isOpen: true
+    })
+  }
+  handleCancel = e => {
+    this.setState({
+      isOpen: false
+    })
+  }
+
   render() {
+    let { events, isOpen } = this.state;
     return (
         <Grid>
             <Grid.Column width={10}>
                 <EventList events={events} />
             </Grid.Column>
             <Grid.Column width={6}>
-                <Button positive content='Create Event' />
-                <EventForm />
+                <Button positive content='Create Event' onClick={this.handleFormOpen} />
+                { isOpen && <EventForm handleCancel={this.handleCancel} /> }
             </Grid.Column>
         </Grid>
     )
