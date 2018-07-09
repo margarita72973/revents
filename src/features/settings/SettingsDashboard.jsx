@@ -10,7 +10,6 @@ import AccountPage from './AccountPage';
 
 const SettingsDashboard = () => {
   return (
-
     <Grid>
       <Grid.Column width={12}>
         <Switch>
