@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import cuid from 'cuid';
 import { Segment, Form, Button } from 'semantic-ui-react';
-
+import { createEvent, updateEvent } from '../eventActions';
 
 class EventForm extends Component {
 
@@ -13,9 +14,20 @@ class EventForm extends Component {
 
     onFormSubmit = e => {
         e.preventDefault();
-        this.state.event.id 
-        ? this.props.updateEvent(this.state.event) 
-        : this.props.createEvent(this.state.event);
+        if(this.state.event.id){
+            this.props.updateEvent(this.state.event);
+            this.props.history.goBack()
+
+        } else {
+            const newEvent = {
+                ...this.state.event,
+                id: cuid(),
+                hostPhotoURL: '/assets/user.png'
+            }
+
+            this.props.createEvent(newEvent);
+            this.props.history.push('/events')
+        }
     } 
 
     onInputChange = e => {
@@ -29,7 +41,6 @@ class EventForm extends Component {
 
 
   render() {
-    const { handleCancel } = this.props; 
     const { event } = this.state; 
     return (
         <Segment>
@@ -57,7 +68,7 @@ class EventForm extends Component {
             <Button positive type="submit">
                 Submit
             </Button>
-            <Button type="button" onClick={handleCancel}>Cancel</Button>
+            <Button type="button" onClick={this.props.history.goBack}>Cancel</Button>
         </Form>
         </Segment>
     )
@@ -83,4 +94,10 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 
-export default connect(mapStateToProps)(EventForm);
+const mapDispatchToProps = {
+    createEvent, 
+    updateEvent
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventForm);
