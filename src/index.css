@@ -104,3 +104,7 @@ body {
   padding-bottom: 0 !important;
   padding-left: 2em !important;
 }
+
+.ui.form .field:last-child, .ui.form .fields:last-child .field {
+  margin-bottom: unset;
+}
