@@ -7,7 +7,7 @@ import moment from 'moment';
 
 const DateInput = ({input: {value, onChange, ...restInput}, width, placeholder, meta: {touched, error}, ...rest}) => {
   return (
-    <Form.Field error={touched && !!error}>
+    <Form.Field error={touched && !!error} width={width}>
         <DatePicker 
             {...rest}
             placeholderText={placeholder}
