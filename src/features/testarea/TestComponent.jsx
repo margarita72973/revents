@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import Script from 'react-load-script';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
-import GoogleMapReact from 'google-map-react';
+//import GoogleMapReact from 'google-map-react';
 import { incrementCounter, decrementCounter } from './testActions';
 import { Button, Icon } from 'semantic-ui-react';
+import { openModal } from '../modals/modalActions';
 
 
-const Marker = () => <Icon name='marker' size='big' color='red' />
+//const Marker = () => <Icon name='marker' size='big' color='red' />
+
 
 class TestComponent extends Component {
 
@@ -47,7 +49,7 @@ class TestComponent extends Component {
       value: this.state.address,
       onChange: this.onChange,
     }
-    const { incrementCounter, decrementCounter, data } = this.props;
+    const { incrementCounter, decrementCounter, data, openModal } = this.props;
     return (
       <div>
         {/*<Script
@@ -57,14 +59,15 @@ class TestComponent extends Component {
         }
         <h1>Test Area</h1>
         <h3>The answer is: {data}</h3>
-        <Button onClick={incrementCounter} content="Increse" />
-        <Button onClick={decrementCounter} content="Decrese" />
+        <Button onClick={incrementCounter} color='green' content="Increse" />
+        <Button onClick={decrementCounter} color='red' content="Decrese" />
+        <Button onClick={()=> openModal('TestModal', {data:43})} color='teal' content="Open Modal" />
         <br/><br/>
         <form onSubmit={this.handleFormSubmit}>
           {this.state.scriptLoades && <PlacesAutocomplete inputProps={inputProps} />}
         <button type="submit">Submit</button>
       </form>
-      <div style={{ height: '300px', width: '100%' }}>
+      {/*<div style={{ height: '300px', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyCWLIs8aK-D33yGkkOD3SGwhQ-lY20NMyE' }}
           defaultCenter={this.props.center}
@@ -75,8 +78,8 @@ class TestComponent extends Component {
             lng={30.337844}
             text={'Kreyser Avrora'}
           />
-        </GoogleMapReact>
-      </div>
+        </GoogleMapReact> 
+      </div>*/}
       </div>
     )
   }
@@ -88,7 +91,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   incrementCounter,
-  decrementCounter
+  decrementCounter,
+  openModal
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TestComponent);
