@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 //import GoogleMapReact from 'google-map-react';
 import { incrementAsync, decrementAsync } from './testActions';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { openModal } from '../modals/modalActions';
 
 

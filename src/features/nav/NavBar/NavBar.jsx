@@ -34,7 +34,7 @@ class NavBar extends Component {
             Re-vents
           </Menu.Item>
           <Menu.Item as={NavLink} to='/events' name="Events" />
-          {authenticated && 
+        {authenticated && 
           <Menu.Item as={NavLink} to='/people' name="People" /> 
         }
         {authenticated && 
