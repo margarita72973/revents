@@ -9,7 +9,7 @@ class EventList extends Component {
     return (
       <div>
         {
-          events.map( ev => (
+          events && events.map( ev => (
             <EventListItem 
               key={ev.id} 
               event={ev} 
