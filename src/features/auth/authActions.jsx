@@ -18,7 +18,8 @@ export const login = (creds) => {
 }
 
 export const registerUser = user => 
-    async (dispatch, getState, {getFirebase, getFirestore}) => {
+async (dispatch, getState, {getFirebase, getFirestore}) => {
+        console.log('user', user);
         const firebase = getFirebase();
         const firestore = getFirestore();
         try {
@@ -26,7 +27,7 @@ export const registerUser = user =>
             let createdUser = await firebase
                 .auth()
                 .createUserWithEmailAndPassword(user.email, user.password);
-            console.log( createdUser);
+            console.log('createdUser', createdUser);
             // update the auth profile
             await createdUser.updateProfile({
                 displayName: user.displayName
@@ -40,5 +41,24 @@ export const registerUser = user =>
             dispatch(closeModal());
         } catch (err) {
             console.log('err', err)
+            throw new SubmissionError({
+                _error: err.message
+            })
         }
     }
+
+
+    export const socialLogin = selectedProvider => 
+        async (dispatch, getState, {getFirebase}) => {
+            const firebase = getFirebase();
+            try {
+                dispatch(closeModal());
+                const user = await firebase.login({
+                    provider: selectedProvider,
+                    type: 'popup'
+                })
+                console.log('user', user)
+            } catch (err) {
+                console.log('err', err)
+            }
+        }
