@@ -13,7 +13,7 @@ export const loginUser = (state, payload) => {
         currentUser: payload.creds.email
     }
 }
-export const signOutUser = (state, payload) => {
+export const signOutUser = state => {
     return {
         ...state,
         authenticated: false,
